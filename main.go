@@ -18,8 +18,9 @@ func TitleSearch (r Sex.Request) (Sex.Json, int) {
         }, 500
     }
 
-    movies := resp["results"].([]map[string]interface{})
-    for _, movie := range movies {
+    movies := resp["results"].([]interface{})
+    for _, m := range movies {
+        movie := m.(map[string]interface{})
         if Normalize(movie["title"].(string)) != title {
             continue
         }
