@@ -126,7 +126,7 @@ O desafio consiste em criar rotas que irão receber parâmetro com o do filme e 
 
 ## Requisitos Obrigatórios
 
-- Deve utilizar a api **https://swapi.dev**/ diretamente pelo **endpoint**
+- Deve utilizar a api https://swapi.dev/ diretamente pelo **endpoint**
 - Deve ser disponibilizado uma rota para receber o parâmetro por **params**
 - Toda a estrutura deve ser desenvolvida apenas utilizando a linguagem GO e suas bibliotecas existentes/oficiais, disponíveis em **https://pkg.go.dev/**
 - As requisições não podem passar de 15ms para o retorno
