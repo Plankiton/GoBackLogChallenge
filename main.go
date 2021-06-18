@@ -1,8 +1,5 @@
 package main
-import (
-    "github.com/Plankiton/SexPistol/Casing"
-    "github.com/Plankiton/SexPistol"
-)
+import "github.com/Plankiton/SexPistol"
 
 func main() {
     new(Sex.Pistol).
