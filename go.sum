@@ -1,6 +1,8 @@
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/Plankiton/SexPistol v0.2.9 h1:d+KQdIh1LmWfQahuFIWBHb9KwqBjx9ZAZ4XHschVxvQ=
 github.com/Plankiton/SexPistol v0.2.9/go.mod h1:7ZQJ6cQRQL48ho+PiBcf9+qw3WA4v0ICrPwo/2+g+0A=
+github.com/Plankiton/Swapi v0.0.4 h1:lqumKrBYpdSMk5A558tTbrisMb02doog+7xV8/HZ3fw=
+github.com/Plankiton/Swapi v0.0.4/go.mod h1:SVB8C8GEVzAMtqS5befcULREiyKZlgqeMk0+lDodhD0=
 github.com/Showmax/go-fqdn v1.0.0 h1:0rG5IbmVliNT5O19Mfuvna9LL7zlHyRfsSvBPZmF9tM=
 github.com/Showmax/go-fqdn v1.0.0/go.mod h1:SfrFBzmDCtCGrnHhoDjuvFnKsWjEQX/Q9ARZvOrJAko=
 github.com/cockroachdb/apd v1.1.0/go.mod h1:8Sl8LxpKi29FqWXR16WEFZRNSz3SoPzUzeMeY4+DwBQ=

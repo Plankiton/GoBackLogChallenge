@@ -1,5 +1,7 @@
 package main
-import "github.com/Plankiton/SexPistol"
+import (
+    "github.com/Plankiton/SexPistol"
+)
 
 func main() {
     new(Sex.Pistol).
@@ -10,43 +12,43 @@ func main() {
 func TitleSearch (r Sex.Request) (Sex.Json, int) {
     title := Normalize(r.PathVars["title"])
 
-    resp, err := Get("https://swapi.dev/api/films")
-    if err != nil {
+    var res map[string]interface{}
+    if err, status := Get(Sex.Fmt("films/?search=%s", title), &res); err != nil {
         return Sex.Bullet {
             Type: "Error",
-            Message: "internal server error",
+            Message: Sex.Fmt("%v", err),
+            Data: res,
+        }, status
+    }
+
+    if _, ok := res["result"]; !ok {
+        return Sex.Bullet {
+            Type: "Error",
+            Message: "Error on load of data from https://swapi.dev",
+            Data: res,
         }, 500
     }
 
-    movies := resp["results"].([]interface{})
-    for _, m := range movies {
-        movie := m.(map[string]interface{})
-        if Normalize(movie["title"].(string)) != title {
-            continue
-        }
-
-        for prop, value := range movie {
-            if urls, ok := value.([]string); ok {
-                cat := make([]map[string]interface{}, len(urls))
-                for u, url := range urls {
-                    data, err := Get(url)
-                    if err != nil {
-                        continue
-                    }
-
-                    cat[u] = data
-                }
-
-                movie[prop] = cat
-            }
-        }
-
-        return movie, Sex.StatusOK
+    if res["count"].(float64) > 1 || res["count"].(float64) < 1 {
+        return Sex.Bullet {
+            Type: "Error",
+            Message: "Movie not found",
+        }, Sex.StatusNotFound
     }
 
+    movie := res["result"].([]interface{})[0].(map[string]interface{})
+    for prop, value := range movie {
+        if links, ok := value.([]interface{}); ok {
+            new_link_list := make([]interface{}, len(links))
 
-    return Sex.Bullet {
-        Type: "Error",
-        Message: "movie not found",
-    }, 404
+            for l, _link := range links {
+                link := _link.(string)
+                Get(link[Index(link, prop):], new_link_list[l])
+            }
+
+            movie[prop] = new_link_list
+        }
+    }
+
+    return res, Sex.StatusOK
 }
