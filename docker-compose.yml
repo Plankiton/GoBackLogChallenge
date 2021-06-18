@@ -1,0 +1,12 @@
+version: '2'
+services:
+  api:
+    build:
+      context: .
+    volumes:
+      - .:/api
+    env_file: .env
+    expose:
+      - "8000"
+    ports:
+      - "80:8000"

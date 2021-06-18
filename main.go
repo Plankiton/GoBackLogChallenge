@@ -1,5 +1,6 @@
 package main
 import (
+    "github.com/Plankiton/SexPistol/Casing"
     "github.com/Plankiton/SexPistol"
 )
 
@@ -70,13 +71,6 @@ func TitleSearch (r Sex.Request) (Sex.Json, int) {
     for len(lock) < props {
         Sex.SuperPut(movie)
     }
-
-    var movie_filtered Film
-    Sex.Copy(movie, &movie_filtered)
-    Sex.Copy(movie["characters"], &movie_filtered.Characters)
-    Sex.Copy(movie["planets"], &movie_filtered.Planets)
-    Sex.Copy(movie["starships"], &movie_filtered.Starships)
-    Sex.Copy(movie["vehicles"], &movie_filtered.Vehicles)
 
     return movie, Sex.StatusOK
 }

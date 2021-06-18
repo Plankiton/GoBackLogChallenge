@@ -128,16 +128,18 @@ O desafio consiste em criar rotas que irão receber parâmetro com o do filme e 
 
 - [X] Deve utilizar a api https://swapi.dev/ diretamente pelo **endpoint**
 - [X] Deve ser disponibilizado uma rota para receber o parâmetro por **params**
-- [X] Toda a estrutura deve ser desenvolvida apenas utilizando a linguagem GO e suas bibliotecas existentes/oficiais, disponíveis em **https://pkg.go.dev/**
+- [X] Toda a estrutura deve ser desenvolvida apenas utilizando a linguagem GO e suas bibliotecas existentes/oficiais, disponíveis em **https://pkg.go.tech/**
 - [ ] As requisições não podem passar de 15ms para o retorno
-    > A API swapi leva mais de 3s para responder sozinha, e a minha faz diversas requisições com base em sublinks oq impossibilita isso
+    
+    > A API swapi leva mais de 3s para responder sozinha, e a minha faz diversas requisições com base em sublinks oq impossibilita isso:
+    > ![image-20210618192035264](/home/plankiton/.config/Typora/typora-user-images/image-20210618192035264.png)
 - [X] Pode ser utilizado todo tipo de consulta e exemplos da internet
 - [X] O projeto deve estar disponibilizado no GitHub
-- [X] **Para a criação do servidor web deverá ser utilizado o SexPistol (****[https://github.com/plankiton/SexPistol](https://www.google.com/url?q=https://github.com/plankiton/SexPistol&sa=D&source=editors&ust=1623963347448000&usg=AOvVaw22ahpgc6kY4d3_QZg6yb6j)****)**
+- [X] **Para a criação do servidor web deverá ser utilizado o SexPistol ([https://github.com/plankiton/SexPistol](https://www.google.com/url?q=https://github.com/plankiton/SexPistol&sa=D&source=editors&ust=1623963347448000&usg=AOvVaw22ahpgc6kY4d3_QZg6yb6j))**
 - [X] **Deverá funcionar apenas para os 6 primeiros filmes da Saga Star Wars**
 
 ## Requisitos Opcionais
 
-- Criação de um ambiente docker para rodar a aplicação, externalizando a porta para ser acessada via **localhost**
-- Criação de um Insomnia/Postman para teste através das plataformas
-- Criação de um painel web para apresentar os dados ao clicar em botões com os nomes dos filmesG
+- [x] Criação de um ambiente docker para rodar a aplicação, externalizando a porta para ser acessada via **localhost**
+- [ ] Criação de um Insomnia/Postman para teste através das plataformas
+- [ ] Criação de um painel web para apresentar os dados ao clicar em botões com os nomes dos filmesG
