@@ -126,14 +126,15 @@ O desafio consiste em criar rotas que irão receber parâmetro com o do filme e 
 
 ## Requisitos Obrigatórios
 
-- Deve utilizar a api https://swapi.dev/ diretamente pelo **endpoint**
-- Deve ser disponibilizado uma rota para receber o parâmetro por **params**
-- Toda a estrutura deve ser desenvolvida apenas utilizando a linguagem GO e suas bibliotecas existentes/oficiais, disponíveis em **https://pkg.go.dev/**
-- As requisições não podem passar de 15ms para o retorno
-- Pode ser utilizado todo tipo de consulta e exemplos da internet
-- O projeto deve estar disponibilizado no GitHub
-- **Para a criação do servidor web deverá ser utilizado o SexPistol (****[https://github.com/plankiton/SexPistol](https://www.google.com/url?q=https://github.com/plankiton/SexPistol&sa=D&source=editors&ust=1623963347448000&usg=AOvVaw22ahpgc6kY4d3_QZg6yb6j)****)**
-- **Deverá funcionar apenas para os 6 primeiros filmes da Saga Star Wars**
+- [X] Deve utilizar a api https://swapi.dev/ diretamente pelo **endpoint**
+- [X] Deve ser disponibilizado uma rota para receber o parâmetro por **params**
+- [X] Toda a estrutura deve ser desenvolvida apenas utilizando a linguagem GO e suas bibliotecas existentes/oficiais, disponíveis em **https://pkg.go.dev/**
+- [ ] As requisições não podem passar de 15ms para o retorno
+    > A API swapi leva mais de 3s para responder sozinha, e a minha faz diversas requisições com base em sublinks oq impossibilita isso
+- [X] Pode ser utilizado todo tipo de consulta e exemplos da internet
+- [X] O projeto deve estar disponibilizado no GitHub
+- [X] **Para a criação do servidor web deverá ser utilizado o SexPistol (****[https://github.com/plankiton/SexPistol](https://www.google.com/url?q=https://github.com/plankiton/SexPistol&sa=D&source=editors&ust=1623963347448000&usg=AOvVaw22ahpgc6kY4d3_QZg6yb6j)****)**
+- [X] **Deverá funcionar apenas para os 6 primeiros filmes da Saga Star Wars**
 
 ## Requisitos Opcionais
 
