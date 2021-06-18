@@ -10,10 +10,10 @@ func main() {
 }
 
 func TitleSearch (r Sex.Request) (Sex.Json, int) {
-    title := Normalize(r.PathVars["title"])
+    title := r.PathVars["title"]
 
     var res map[string]interface{}
-    if err, status := Get(Sex.Fmt("films/?search=%s", title), &res); err != nil {
+    if err, status := Get( Normalize(Sex.Fmt("films/?search=%s", title)), &res); err != nil {
         return Sex.Bullet {
             Type: "Error",
             Message: Sex.Fmt("%v", err),
@@ -24,31 +24,59 @@ func TitleSearch (r Sex.Request) (Sex.Json, int) {
     if _, ok := res["result"]; !ok {
         return Sex.Bullet {
             Type: "Error",
-            Message: "Error on load of data from https://swapi.dev",
+            Message: "Error on load of data from https://www.swapi.tech",
             Data: res,
         }, 500
     }
 
-    if res["count"].(float64) > 1 || res["count"].(float64) < 1 {
+    result := res["result"].([]interface{})
+    if len(result) > 1 || len(result) < 1 {
         return Sex.Bullet {
             Type: "Error",
             Message: "Movie not found",
         }, Sex.StatusNotFound
     }
 
-    movie := res["result"].([]interface{})[0].(map[string]interface{})
+
+    props := 0
+    lock := []byte{}
+    movie := result[0].(map[string]interface{})["properties"].(map[string]interface{})
     for prop, value := range movie {
         if links, ok := value.([]interface{}); ok {
-            new_link_list := make([]interface{}, len(links))
+            movie[prop] = []map[string]interface{}{}
 
-            for l, _link := range links {
+            for _, _link := range links {
                 link := _link.(string)
-                Get(link[Index(link, prop):], new_link_list[l])
-            }
 
-            movie[prop] = new_link_list
+                go Get(link, func (tmp interface{}) {
+                    if tmp != nil {
+                        res := tmp.(map[string]interface{})
+                        result := res["result"]
+                        if fixed_list, ok := result.(map[string]interface{})["properties"].(map[string]interface{}); ok {
+                            for p, v := range fixed_list {
+                                if _, ok := v.([]interface{}); ok {
+                                    fixed_list[p] = nil
+                                }
+                            }
+                            movie[prop] = append(movie[prop].([]map[string]interface{}), fixed_list)
+                        }
+                    }
+                    lock = append(lock, 1)
+                })
+            }
+            props ++
         }
     }
+    for len(lock) < props {
+        Sex.SuperPut(movie)
+    }
 
-    return res, Sex.StatusOK
+    var movie_filtered Film
+    Sex.Copy(movie, &movie_filtered)
+    Sex.Copy(movie["characters"], &movie_filtered.Characters)
+    Sex.Copy(movie["planets"], &movie_filtered.Planets)
+    Sex.Copy(movie["starships"], &movie_filtered.Starships)
+    Sex.Copy(movie["vehicles"], &movie_filtered.Vehicles)
+
+    return movie, Sex.StatusOK
 }

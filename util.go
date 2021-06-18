@@ -5,24 +5,30 @@ import (
 
     "io/ioutil"
     "net/http"
-    "net/url"
+
     "strings"
 )
 
 func Get(u string, v interface{}) (error, int) {
-    var resp *http.Response
-    var body []byte
-    var err error
 
-    resp, err = http.Get("https://swapi.dev/api/"+ url.QueryEscape(u))
+    resp, err := http.Get(u)
 
-    if err != nil {
-        body, err = ioutil.ReadAll(resp.Body)
-        Sex.SuperPut(u, string(body))
-        Sex.FromJson(body, v)
+    if err == nil {
+        defer resp.Body.Close()
+
+        body, err := ioutil.ReadAll(resp.Body)
+        if call_back, ok := v.(func (tmp interface{})); ok {
+            var data map[string]interface{}
+            err = Sex.FromJson(body, &data)
+            call_back(data)
+        } else {
+            err = Sex.FromJson(body, v)
+        }
+
+        return err, 200
     }
 
-    return err, resp.StatusCode
+    return err, 500
 }
 
 func Index(s string, s2 string) int {
@@ -34,6 +40,6 @@ func Normalize(t string) string {
     t = strings.Replace(t, "_", "+", -1)
     t = strings.Trim(t, " ")
 
-    return t
+    return Sex.Fmt("https://www.swapi.tech/api/%s", t)
 }
 
