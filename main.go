@@ -59,9 +59,9 @@ func TitleSearch (r Sex.Request) (Sex.Json, int) {
                                     }
                                 }
                                 movie[prop] = append(movie[prop].([]map[string]interface{}), fixed_list)
+                                lock = append(lock, 1)
                             }
                         }
-                        lock = append(lock, 1)
                     }
                 }, prop)
             }

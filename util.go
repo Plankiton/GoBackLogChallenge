@@ -20,7 +20,7 @@ func Get(u string, v interface{}, a...interface{}) (error, int) {
         if call_back, ok := v.(func (tmp interface{}, a...interface{})); ok {
             var data map[string]interface{}
             err = Sex.FromJson(body, &data)
-            call_back(data)
+            call_back(data, a...)
         } else {
             err = Sex.FromJson(body, v)
         }
