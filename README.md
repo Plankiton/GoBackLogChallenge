@@ -2,9 +2,11 @@
 
 # Disclaimer
 
-O código era pra ficar mais simples que isso, no inicio criei uma função pra fazer a requisição e parsear a resposta e fazia as requisições dos sublinks sincronamente uma atrás da outra até retornar o valor final, mas tinha um problema, a resposta tava durando mais de um minuto em alguns casos já que a resposta normal do servidor demora mais de 3s pra chegar, por isso resolvi que tinha que dar uma forma de deixar pelo menos um pouco mais rápido.
+O código era pra ficar mais simples que isso, no inicio criei uma função pra fazer a requisição e parsear a resposta, além de todas as requisições sincronamente, uma atrás da outra e por fim, retornar o valor final. Mas tinha um problema, a resposta tava durando mais de um minuto pra chegar.
 
-Então, modifiquei a função Get pra receber um callback e argumentos para tornar as coisas assincronas e tentar executar mais de uma requisição ao mesmo tempo, isso aumentou levemente a complexidade do código, então pode ter ficado um pouco difícil de ler pra algumas pessoas.
+Em alguns casos já que a resposta normal do servidor demora mais de 4s, por isso resolvi que tinha que dar uma forma de deixar pelo menos um pouco mais rápido.
+
+Então, modifiquei a função Get pra receber um callback e argumentos para tornar as coisas assincronas e tentar executar mais de uma requisição ao mesmo tempo, isso aumentou levemente a velocidade e a complexidade do código (além de não tem muitas boas práticas quando o assunto é thread safe, mas ta funcionando), então pode ter ficado um pouco difícil de ler pra algumas pessoas.
 
 > PS: A API te bloqueia temporariamente depois de um certo número de requests, portanto use com moderação
 
