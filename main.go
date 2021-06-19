@@ -44,15 +44,16 @@ func TitleSearch (r Sex.Request) (Sex.Json, int) {
                         prop := v[0].(string)
                         if tmp != nil {
                             res := tmp.(map[string]interface{})
-                            result := res["result"]
-                            if fixed_list, ok := result.(map[string]interface{})["properties"].(map[string]interface{}); ok {
-                                for p, v := range fixed_list {
-                                    if _, ok := v.([]interface{}); ok {
-                                        fixed_list[p] = nil
+                            if result, ok := res["result"].(map[string]interface{}); ok {
+                                if fixed_list, ok := result["properties"].(map[string]interface{}); ok {
+                                    for p, v := range fixed_list {
+                                        if _, ok := v.([]interface{}); ok {
+                                            fixed_list[p] = nil
+                                        }
                                     }
+                                    movie[prop] = append(movie[prop].([]map[string]interface{}), fixed_list)
+                                    lock = append(lock, 1)
                                 }
-                                movie[prop] = append(movie[prop].([]map[string]interface{}), fixed_list)
-                                lock = append(lock, 1)
                             }
                         }
                     }
