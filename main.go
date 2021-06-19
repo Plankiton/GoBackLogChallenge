@@ -46,28 +46,29 @@ func TitleSearch (r Sex.Request) (Sex.Json, int) {
             for _, _link := range links {
                 link := _link.(string)
 
-                go Get(link, func (tmp interface{}) {
-                    if tmp != nil {
-                        res := tmp.(map[string]interface{})
-                        result := res["result"]
-                        if fixed_list, ok := result.(map[string]interface{})["properties"].(map[string]interface{}); ok {
-                            for p, v := range fixed_list {
-                                if _, ok := v.([]interface{}); ok {
-                                    fixed_list[p] = nil
+                go Get(link, func (tmp interface{}, v...interface{}) {
+                    if v != nil {
+                        prop := v[0].(string)
+                        if tmp != nil {
+                            res := tmp.(map[string]interface{})
+                            result := res["result"]
+                            if fixed_list, ok := result.(map[string]interface{})["properties"].(map[string]interface{}); ok {
+                                for p, v := range fixed_list {
+                                    if _, ok := v.([]interface{}); ok {
+                                        fixed_list[p] = nil
+                                    }
                                 }
+                                movie[prop] = append(movie[prop].([]map[string]interface{}), fixed_list)
                             }
-                            movie[prop] = append(movie[prop].([]map[string]interface{}), fixed_list)
                         }
+                        lock = append(lock, 1)
                     }
-                    lock = append(lock, 1)
-                })
+                }, prop)
             }
             props ++
         }
     }
-    for len(lock) < props {
-        Sex.SuperPut(movie)
-    }
+    for len(lock) < props {}
 
     return movie, Sex.StatusOK
 }

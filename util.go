@@ -9,7 +9,7 @@ import (
     "strings"
 )
 
-func Get(u string, v interface{}) (error, int) {
+func Get(u string, v interface{}, a...interface{}) (error, int) {
 
     resp, err := http.Get(u)
 
@@ -17,7 +17,7 @@ func Get(u string, v interface{}) (error, int) {
         defer resp.Body.Close()
 
         body, err := ioutil.ReadAll(resp.Body)
-        if call_back, ok := v.(func (tmp interface{})); ok {
+        if call_back, ok := v.(func (tmp interface{}, a...interface{})); ok {
             var data map[string]interface{}
             err = Sex.FromJson(body, &data)
             call_back(data)
