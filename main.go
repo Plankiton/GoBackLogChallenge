@@ -11,15 +11,8 @@ func TitleSearch (r Sex.Request) (Sex.Json, int) {
     title := r.PathVars["title"]
 
     var res map[string]interface{}
-    if err, status := Get( Normalize(Sex.Fmt("films/?search=%s", title)), &res); err != nil {
-        return Sex.Bullet {
-            Type: "Error",
-            Message: Sex.Fmt("%v", err),
-            Data: res,
-        }, status
-    }
-
-    if _, ok := res["result"]; !ok {
+    err, _ := Get( Normalize(Sex.Fmt("films/?search=%s", title)), &res)
+    if _, ok := res["result"]; !ok || err != nil {
         return Sex.Bullet {
             Type: "Error",
             Message: "Error on load of data from https://www.swapi.tech",

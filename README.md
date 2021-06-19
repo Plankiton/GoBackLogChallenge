@@ -1,24 +1,22 @@
 <img src="img/image1.png" style="background-color: white;border-radius: 5px"/>
 
+# Disclaimer
 
+O código era pra ficar mais simples que isso, no inicio criei uma função pra fazer a requisição e parsear a resposta e fazia as requisições dos sublinks sincronamente uma atrás da outra até retornar o valor final, mas tinha um problema, a resposta tava durando mais de um minuto em alguns casos já que a resposta normal do servidor demora mais de 3s pra chegar, por isso resolvi que tinha que dar uma forma de deixar pelo menos um pouco mais rápido.
+
+Então, modifiquei a função Get pra receber um callback e argumentos para tornar as coisas assincronas e tentar executar mais de uma requisição ao mesmo tempo, isso aumentou levemente a complexidade do código, então pode ter ficado um pouco difícil de ler pra algumas pessoas.
+
+> PS: A API te bloqueia temporariamente depois de um certo número de requests, portanto use com moderação
 
 # Desafio - GO StarWars
 
-
-
 Star Wars é uma grande saga de filmes de Ficção Científica que está dentro da cultura pop desde os anos 70 até os dias de hoje.
 
-
-
-O desafio consiste em criar rotas que irão receber parâmetro com o do filme e retornar todos os dados do filme e dos os nomes de personagens, naves, planetas, veículos, espécies e suas características. Exemplo:
-
-
+ desafio consiste em criar rotas que irão receber parâmetro com o do filme e retornar todos os dados do filme e dos os nomes de personagens, naves, planetas, veículos, espécies e suas características. Exemplo:
 
 **Request:**
 
 *http://localhost:8000/A_NEW_HOPE*
-
-
 
 **Response:**
 
